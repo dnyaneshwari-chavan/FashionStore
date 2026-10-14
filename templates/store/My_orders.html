@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | FashionStore</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 35px 20px;
+            font-family: Arial, sans-serif;
+            background: #f8f3ed;
+            color: #493629;
+        }
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+        h1 { text-align: center; }
+        .order {
+            background: white;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #0000000d;
+        }
+        .status { color: #287443; font-weight: bold; }
+        a {
+            display: inline-block;
+            background: #654832;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        .empty { text-align: center; padding: 35px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>My Orders</h1>
+
+    {% for order in orders %}
+        <div class="order">
+            <h3>Order #{{ order.id }}</h3>
+            <p><strong>Name:</strong> {{ order.full_name }}</p>
+            <p><strong>Date:</strong> {{ order.created_at|date:"d M Y, h:i A" }}</p>
+            <p><strong>Total:</strong> ₹{{ order.total_amount }}</p>
+            <p>Status: <span class="status">{{ order.status }}</span></p>
+
+            <h4>Items</h4>
+            {% for item in order.items.all %}
+                <p>{{ item.product.name }} × {{ item.quantity }} — ₹{{ item.price }}</p>
+            {% endfor %}
+        </div>
+    {% empty %}
+        <div class="order empty">
+            <h3>No orders found</h3>
+            <p>Your orders will appear here after checkout.</p>
+        </div>
+    {% endfor %}
+
+    <center>
+        <a href="{% url 'home' %}">Continue Shopping</a>
+    </center>
+</div>
+</body>
+</html>

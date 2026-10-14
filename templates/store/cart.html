@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shopping Cart | FashionStore</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f8f5ef;
+            --beige: #e9dfd0;
+            --brown: #604b3f;
+            --dark-brown: #352820;
+            --light-brown: #a58a72;
+            --white: #ffffff;
+            --border: #e6ddd2;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+        }
+
+        header {
+            background: var(--dark-brown);
+            color: var(--white);
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 27px;
+            letter-spacing: 1px;
+            color: #e8d6c1;
+        }
+
+        header a {
+            color: #f5eadd;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            color: white;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 45px auto;
+            padding: 0 22px;
+        }
+
+        .page-heading {
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: var(--dark-brown);
+        }
+
+        .subtitle {
+            color: #827365;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .message {
+            background: #eee6d9;
+            color: #514133;
+            padding: 14px 17px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: var(--white);
+            padding: 22px;
+            margin-bottom: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 5px 18px #46342608;
+        }
+
+        .cart-item img {
+            width: 125px;
+            height: 145px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: var(--beige);
+        }
+
+        .details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .details h3 {
+            margin: 0 0 12px;
+            font-size: 19px;
+            color: var(--dark-brown);
+        }
+
+        .price {
+            color: var(--brown);
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .subtotal {
+            color: #77685b;
+            font-size: 14px;
+        }
+
+        form {
+            margin-top: 12px;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            padding: 9px;
+            margin: 0 7px;
+            border: 1px solid #d7cabb;
+            border-radius: 6px;
+            background: #fffdf9;
+            color: var(--dark-brown);
+        }
+
+        button, .shop-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s ease;
+        }
+
+        .update-btn {
+            background: var(--beige);
+            color: var(--dark-brown);
+        }
+
+        .update-btn:hover {
+            background: #d9c8b4;
+        }
+
+        .remove-btn {
+            background: #f1ece6;
+            color: #795747;
+        }
+
+        .remove-btn:hover {
+            background: #e5d8ca;
+        }
+
+        .summary {
+            background: var(--white);
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 28px;
+            text-align: right;
+            box-shadow: 0 5px 18px #46342608;
+        }
+
+        .summary-label {
+            color: #827365;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .total {
+            font-size: 30px;
+            color: var(--brown);
+            font-weight: bold;
+        }
+
+        .shipping {
+            color: #8b7b6b;
+            font-size: 13px;
+        }
+
+        .shop-btn {
+            background: var(--brown);
+            color: white;
+            margin-top: 12px;
+        }
+
+        .shop-btn:hover {
+            background: var(--dark-brown);
+        }
+
+        .empty {
+            background: var(--white);
+            padding: 55px 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .empty h2 {
+            color: var(--dark-brown);
+        }
+
+        .empty p {
+            color: #827365;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #89796a;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                margin: 28px auto;
+                padding: 0 14px;
+            }
+
+            .page-heading {
+                font-size: 25px;
+            }
+
+            .cart-item {
+                align-items: flex-start;
+                gap: 13px;
+                padding: 13px;
+            }
+
+            .cart-item img {
+                width: 90px;
+                height: 115px;
+            }
+
+            .details h3 {
+                font-size: 15px;
+            }
+
+            .price {
+                font-size: 15px;
+            }
+
+            input[type="number"] {
+                margin: 8px 3px;
+            }
+
+            button, .shop-btn {
+                padding: 9px 11px;
+            }
+
+            .summary {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>FashionStore</h1>
+        <a href="{% url 'home' %}">← Continue Shopping</a>
+    </header>
+
+    <main class="container">
+        <h2 class="page-heading">My Shopping Cart</h2>
+        <p class="subtitle">
+            You have {{ cart_count }} item(s) in your shopping bag.
+        </p>
+
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+
+        {% if cart_items %}
+            {% for item in cart_items %}
+                <div class="cart-item">
+
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}"
+                             alt="{{ item.product.name }}">
+                    {% else %}
+                        <img
+                            src="https://placehold.co/300x400/e9dfd0/604b3f?text=FashionStore"
+                            alt="{{ item.product.name }}">
+                    {% endif %}
+
+                    <div class="details">
+                        <h3>{{ item.product.name }}</h3>
+
+                        <p class="price">
+                            ₹{{ item.product.price|floatformat:2 }}
+                        </p>
+
+                        <p class="subtotal">
+                            Subtotal: ₹{{ item.subtotal|floatformat:2 }}
+                        </p>
+
+                        <form method="post"
+                              action="{% url 'update_cart_quantity' item.product.id %}">
+                            {% csrf_token %}
+
+                            <label>
+                                Quantity:
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    value="{{ item.quantity }}"
+                                    min="0"
+                                    max="{{ item.product.stock }}"
+                                    required>
+                            </label>
+
+                            <button type="submit" class="update-btn">
+                                Update
+                            </button>
+                        </form>
+
+                        <form method="post"
+                              action="{% url 'remove_from_cart' item.product.id %}">
+                            {% csrf_token %}
+
+                            <button type="submit" class="remove-btn">
+                                Remove Item
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="summary">
+                <p class="summary-label">Order Total</p>
+
+                <div class="total">
+                    ₹{{ total|floatformat:2 }}
+                </div>
+
+                <p class="shipping">
+                    Shipping charges may apply.
+                </p>
+
+                <a href="{% url 'home' %}" class="shop-btn">
+                    Continue Shopping →
+                </a>
+
+                <a href="{% url 'checkout' %}" class="shop-btn">
+                    Proceed to Checkout →
+                </a>
+            </div>
+
+        {% else %}
+            <div class="empty">
+                <h2>Your Cart Is Empty</h2>
+                <p>
+                    Your next favourite outfit is waiting for you.
+                </p>
+
+                <a href="{% url 'home' %}" class="shop-btn">
+                    Explore Collection →
+                </a>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        © FashionStore | Style with Elegance
+    </footer>
+</body>
+</html>

@@ -1,0 +1,174 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | FashionStore</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f8f5ef;
+            color: #352820;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 550px;
+            padding: 40px 28px;
+            text-align: center;
+            background: white;
+            border: 1px solid #e6ddd2;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px #46342610;
+        }
+
+        .check {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e9dfd0;
+            color: #604b3f;
+            font-size: 35px;
+        }
+
+        h1 { color: #604b3f; }
+
+        p {
+            color: #827365;
+            line-height: 1.7;
+        }
+
+        .order-id {
+            padding: 15px;
+            margin: 22px 0;
+            border-radius: 8px;
+            background: #f8f5ef;
+            color: #604b3f;
+            font-weight: bold;
+        }
+
+        .details {
+            margin: 20px 0;
+            padding: 15px;
+            text-align: left;
+            background: #faf8f4;
+            border-radius: 8px;
+        }
+
+        .details p {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid #eee5db;
+            padding-bottom: 8px;
+        }
+
+        .details p:last-child {
+            border-bottom: none;
+        }
+
+        .value {
+            color: #604b3f;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #927d69;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
+            border-radius: 6px;
+            background: #604b3f;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover { background: #352820; }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <div class="check">✓</div>
+
+        <h1>Thank You for Your Order!</h1>
+
+        <p>
+            Your order has been saved successfully.
+            Thank you for shopping with FashionStore.
+        </p>
+
+        <div class="order-id">
+            Order Number: #{{ order.id }}
+        </div>
+
+        <div class="details">
+            <p>
+                <strong>Customer</strong>
+                <span class="value">{{ order.full_name }}</span>
+            </p>
+
+            <p>
+                <strong>Order Total</strong>
+                <span class="value">₹{{ order.total_amount|floatformat:2 }}</span>
+            </p>
+
+            <p>
+                <strong>Order Status</strong>
+                <span class="value">{{ order.status }}</span>
+            </p>
+
+            <p>
+                <strong>Payment Method</strong>
+                <span class="value">
+                    {% if order.payment_method == "COD" %}
+                        Cash on Delivery
+                    {% elif order.payment_method == "UPI" %}
+                        UPI Payment
+                    {% else %}
+                        {{ order.payment_method }}
+                    {% endif %}
+                </span>
+            </p>
+
+            <p>
+                <strong>Payment Status</strong>
+                <span class="value">{{ order.payment_status }}</span>
+            </p>
+        </div>
+
+        {% if order.payment_method == "UPI" and order.payment_status == "Pending" %}
+            <p class="note">
+                UPI payment is not collected yet. This is a demo checkout.
+            </p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn">
+            Continue Shopping
+        </a>
+
+        <a href="{% url 'my_orders' %}" class="btn">
+            My Orders
+        </a>
+    </main>
+</body>
+</html>
+```
