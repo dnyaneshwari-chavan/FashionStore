@@ -1,0 +1,426 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | FashionStore</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f8f5f0;
+            color: #30251f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            min-height: 76px;
+            background: #fffdf9;
+            border-bottom: 1px solid #e9dfd3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 7%;
+            gap: 20px;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .brand span {
+            color: #986b4b;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #986b4b;
+        }
+
+        .nav-button {
+            background: #563b2c;
+            color: white !important;
+            padding: 11px 19px;
+            border-radius: 5px;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background: #76533c;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 50px auto;
+            padding: 0 24px;
+        }
+
+        .heading {
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            color: #986b4b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #82756b;
+            margin-top: 10px;
+            line-height: 1.7;
+        }
+
+        .welcome {
+            background: #563b2c;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 68px;
+            height: 68px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #ead7c2;
+            color: #563b2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: #e7d9ce;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: #fffdf9;
+            border: 1px solid #e9dfd3;
+            border-radius: 9px;
+            padding: 27px;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 23px;
+        }
+
+        .icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f1e7db;
+            border-radius: 7px;
+            font-size: 20px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .detail {
+            padding: 14px 0;
+            border-top: 1px solid #eee6dd;
+        }
+
+        .detail-label {
+            color: #8b7e73;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .card-description {
+            color: #82756b;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .action-link {
+            display: inline-block;
+            padding: 11px 17px;
+            background: #563b2c;
+            color: white;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .action-link:hover {
+            background: #76533c;
+        }
+
+        .logout-area {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .logout-button {
+            border: 1px solid #d8c5b5;
+            background: transparent;
+            color: #76503b;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .logout-button:hover {
+            background: #f0e5d9;
+        }
+
+        footer {
+            text-align: center;
+            color: #8b7e73;
+            font-size: 12px;
+            padding: 25px;
+            margin-top: 45px;
+            border-top: 1px solid #e9dfd3;
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 18px 5%;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .page {
+                margin: 32px auto;
+                padding: 0 16px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 22px;
+            }
+
+            .avatar {
+                width: 54px;
+                height: 54px;
+                font-size: 24px;
+            }
+
+            .welcome h2 {
+                font-size: 21px;
+                overflow-wrap: anywhere;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="{% url 'home' %}" class="brand">
+            Fashion<span>Store.</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'cart' %}">My Cart</a>
+            <a href="{% url 'my_orders' %}">My Orders</a>
+            <a href="{% url 'my_account' %}" class="nav-button">
+                My Account
+            </a>
+        </nav>
+    </header>
+
+    <main class="page">
+
+        <section class="heading">
+            <p class="eyebrow">Your Personal Space</p>
+            <h1>My Account</h1>
+            <p class="subtitle">
+                Manage your account and keep track of your FashionStore journey.
+            </p>
+        </section>
+
+        <section class="welcome">
+            <div class="avatar">
+                {{ account_user.username|first|upper }}
+            </div>
+
+            <div>
+                <h2>Welcome, {{ account_user.username }}!</h2>
+                <p>We're happy to have you shopping with us.</p>
+            </div>
+        </section>
+
+        <section class="grid">
+
+            <article class="card">
+                <div class="card-heading">
+                    <div class="icon">♙</div>
+                    <h2>Profile Details</h2>
+                </div>
+
+                <div class="detail">
+                    <p class="detail-label">Username</p>
+                    <p class="detail-value">
+                        {{ account_user.username }}
+                    </p>
+                </div>
+
+                <div class="detail">
+                    <p class="detail-label">Email Address</p>
+                    <p class="detail-value">
+                        {% if account_user.email %}
+                            {{ account_user.email }}
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="detail">
+                    <p class="detail-label">Member Since</p>
+                    <p class="detail-value">
+                        {{ account_user.date_joined|date:"d M Y" }}
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-heading">
+                    <div class="icon">♧</div>
+                    <h2>My Orders</h2>
+                </div>
+
+                <p class="card-description">
+                    View your previous purchases, check order details,
+                    and keep track of your shopping history.
+                </p>
+
+                <a href="{% url 'my_orders' %}" class="action-link">
+                    View My Orders →
+                </a>
+            </article>
+
+            <article class="card">
+                <div class="card-heading">
+                    <div class="icon">⌂</div>
+                    <h2>Continue Shopping</h2>
+                </div>
+
+                <p class="card-description">
+                    Explore our latest styles and discover something
+                    special for your wardrobe.
+                </p>
+
+                <a href="{% url 'home' %}" class="action-link">
+                    Explore Collection →
+                </a>
+            </article>
+
+            <article class="card">
+                <div class="card-heading">
+                    <div class="icon">⚙</div>
+                    <h2>Account Security</h2>
+                </div>
+
+                <p class="card-description">
+                    Keep your account secure. Always log out when
+                    using a shared computer.
+                </p>
+
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="action-link">
+                        Logout
+                    </button>
+                </form>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        © {% now "Y" %} FashionStore. Made with care.
+    </footer>
+
+</body>
+</html>
